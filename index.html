@@ -1365,46 +1365,6 @@
       border-color: var(--forest);
     }
 
-    .interests-tags {
-      display: flex;
-      flex-wrap: nowrap;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 14px;
-    }
-
-    .interest-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: white;
-      border: 1px solid rgba(45, 90, 39, 0.15);
-      border-radius: 100px;
-      padding: 8px 18px;
-      font-size: 13.5px;
-      color: var(--forest);
-      font-weight: 600;
-      cursor: pointer;
-      user-select: none;
-      white-space: nowrap;
-      transition: all 0.2s;
-    }
-
-    .interest-pill:hover {
-      border-color: var(--forest);
-      transform: translateY(-1px);
-    }
-
-    .interest-pill input {
-      accent-color: var(--forest);
-    }
-
-    @media (max-width: 920px) {
-      .interests-tags {
-        flex-wrap: wrap;
-      }
-    }
-
     @media (max-width: 600px) {
       .input-row {
         flex-direction: column;
@@ -1999,21 +1959,6 @@
           <input type="text" id="joinName" placeholder="Your first name" required>
           <input type="email" id="joinEmail" placeholder="Your email address" required>
           <button type="submit" id="joinSubmitBtn" class="btn-pink" style="white-space:nowrap;">Join the Network →</button>
-        </div>
-
-        <div class="interests-tags">
-          <label class="interest-pill">
-            <input type="checkbox" name="interest" value="events" checked> Gatherings &amp; Brunches
-          </label>
-          <label class="interest-pill">
-            <input type="checkbox" name="interest" value="podcast" checked> Podcast &amp; Conversations
-          </label>
-          <label class="interest-pill">
-            <input type="checkbox" name="interest" value="business" checked> Business Tools &amp; Strategy
-          </label>
-          <label class="interest-pill">
-            <input type="checkbox" name="interest" value="opportunities" checked> Grants &amp; Opportunities
-          </label>
         </div>
         <p id="joinSuccess" style="display:none;color:var(--forest);font-weight:700;margin-top:12px;">
           Welcome to the sisterhood! We look forward to connecting with you.
