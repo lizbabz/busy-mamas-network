@@ -122,11 +122,13 @@
     section {
       padding: 90px 48px;
       position: relative;
+      scroll-margin-top: 80px;
     }
 
     @media (max-width: 768px) {
       section {
         padding: 60px 24px;
+        scroll-margin-top: 70px;
       }
     }
 
@@ -202,28 +204,28 @@
       box-shadow: 0 8px 24px rgba(212, 69, 122, 0.4);
     }
 
-    /* ─── FLOATING PILL NAV ─── */
+    /* ─── SLEEK FROSTED NAVBAR ─── */
     nav {
       position: fixed;
-      top: 24px;
+      top: 0;
       left: 0;
       right: 0;
       z-index: 1000;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 48px;
-      pointer-events: none;
+      padding: 12px 48px;
+      background: rgba(254, 249, 245, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(45, 90, 39, 0.08);
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+      transition: all 0.3s ease;
     }
 
     .nav-logo {
-      pointer-events: all;
       display: flex;
       align-items: center;
-      background: white;
-      padding: 8px 18px;
-      border-radius: 100px;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
       text-decoration: none;
     }
 
@@ -234,14 +236,14 @@
     }
 
     .nav-links {
-      pointer-events: all;
       display: flex;
       align-items: center;
       gap: 4px;
       background: white;
       padding: 6px 10px;
       border-radius: 100px;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(45, 90, 39, 0.08);
     }
 
     .nav-links a {
@@ -262,7 +264,6 @@
     }
 
     .nav-actions {
-      pointer-events: all;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -276,14 +277,14 @@
       border-radius: 100px;
       text-decoration: none;
       font-size: 14px;
-      box-shadow: 0 4px 20px rgba(212, 69, 122, 0.35);
+      box-shadow: 0 4px 16px rgba(212, 69, 122, 0.3);
       transition: all 0.2s;
       white-space: nowrap;
     }
 
     .nav-cta:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(212, 69, 122, 0.45);
+      box-shadow: 0 6px 20px rgba(212, 69, 122, 0.4);
     }
 
     .menu-toggle {
@@ -295,8 +296,7 @@
       border-radius: 50%;
       color: var(--forest);
       cursor: pointer;
-      pointer-events: all;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
       align-items: center;
       justify-content: center;
     }
@@ -370,8 +370,7 @@
         display: flex;
       }
       nav {
-        padding: 0 20px;
-        top: 16px;
+        padding: 12px 20px;
       }
     }
 
@@ -686,12 +685,8 @@
     }
 
     .events-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
       margin-bottom: 48px;
-      flex-wrap: wrap;
-      gap: 20px;
+      max-width: 700px;
     }
 
     .events-grid {
@@ -1050,6 +1045,10 @@
       background: var(--cream);
     }
 
+    .shop-title {
+      white-space: nowrap;
+    }
+
     .products-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -1132,6 +1131,9 @@
     @media (max-width: 1024px) {
       .products-grid {
         grid-template-columns: 1fr;
+      }
+      .shop-title {
+        white-space: normal;
       }
     }
 
@@ -1332,7 +1334,7 @@
     }
 
     .join-box {
-      max-width: 680px;
+      max-width: 980px;
       margin: 0 auto;
     }
 
@@ -1341,6 +1343,9 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .input-row {
@@ -1365,29 +1370,42 @@
 
     .interests-tags {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       justify-content: center;
-      gap: 8px;
-      margin-top: 6px;
+      gap: 12px;
+      margin-top: 14px;
     }
 
     .interest-pill {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       background: white;
       border: 1px solid rgba(45, 90, 39, 0.15);
       border-radius: 100px;
-      padding: 6px 14px;
-      font-size: 13px;
+      padding: 8px 18px;
+      font-size: 13.5px;
       color: var(--forest);
       font-weight: 600;
       cursor: pointer;
       user-select: none;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .interest-pill:hover {
+      border-color: var(--forest);
+      transform: translateY(-1px);
     }
 
     .interest-pill input {
       accent-color: var(--forest);
+    }
+
+    @media (max-width: 920px) {
+      .interests-tags {
+        flex-wrap: wrap;
+      }
     }
 
     @media (max-width: 600px) {
@@ -1524,7 +1542,7 @@
 
 <body>
 
-  <!-- Floating Navigation -->
+  <!-- Sleek Frosted Navigation Bar -->
   <nav>
     <a href="#home" class="nav-logo">
       <img src="logo_new.png?v=999" alt="Busy Mamas Network">
@@ -1667,14 +1685,11 @@
   <!-- Section 2: Gatherings & Experiences (#events) -->
   <section id="events">
     <div class="events-header">
-      <div>
-        <div class="section-label">Calendar & Gatherings</div>
-        <h2>Curated<br><em>Experiences</em></h2>
-        <p class="lead">
-          Brunches, business workshops, and networking moments designed to nourish your ambitions and deepen your circle.
-        </p>
-      </div>
-      <a href="#become-host" class="btn-secondary">Host a Gathering in Your City →</a>
+      <div class="section-label">Calendar & Gatherings</div>
+      <h2>Curated<br><em>Experiences</em></h2>
+      <p class="lead">
+        Brunches, business workshops, and networking moments designed to nourish your ambitions and deepen your circle.
+      </p>
     </div>
 
     <div class="events-grid">
@@ -1884,7 +1899,7 @@
   <section id="shop">
     <div style="text-align:center;max-width:760px;margin:0 auto;">
       <div class="section-label">Merch & Games</div>
-      <h2>Shop Busy<br><em>Mamas</em></h2>
+      <h2 class="shop-title">Shop <em>Busy Mamas</em></h2>
       <p class="lead" style="margin:0 auto;">
         Card games created around the real realities, humor, and joy of modern motherhood. Perfect for game nights, brunches, and gifts.
       </p>
