@@ -1833,10 +1833,13 @@
           <input type="text" id="cityUserName" placeholder="Your first name" required>
           <input type="email" id="cityUserEmail" placeholder="Your email address" required>
           <input type="text" id="cityUserLocation" placeholder="Your city (e.g. Edmonton, Toronto, Dallas)" required>
-          <button type="submit" class="btn-pink" style="white-space:nowrap;">Register Your City</button>
+          <button type="submit" id="citySubmitBtn" class="btn-pink" style="white-space:nowrap;">Register Your City</button>
         </div>
         <p id="citySuccess" style="display:none;color:var(--forest);font-weight:700;margin-top:16px;">
           Thank you! We have noted your city and will keep you posted as new gatherings take shape.
+        </p>
+        <p id="cityError" style="display:none;color:var(--hot-pink);font-weight:700;margin-top:16px;">
+          Something went wrong. Please check your details and try again.
         </p>
       </form>
     </div>
@@ -1995,7 +1998,7 @@
         <div class="input-row">
           <input type="text" id="joinName" placeholder="Your first name" required>
           <input type="email" id="joinEmail" placeholder="Your email address" required>
-          <button type="submit" class="btn-pink" style="white-space:nowrap;">Join the Network →</button>
+          <button type="submit" id="joinSubmitBtn" class="btn-pink" style="white-space:nowrap;">Join the Network →</button>
         </div>
 
         <div class="interests-tags">
@@ -2014,6 +2017,9 @@
         </div>
         <p id="joinSuccess" style="display:none;color:var(--forest);font-weight:700;margin-top:12px;">
           Welcome to the sisterhood! We look forward to connecting with you.
+        </p>
+        <p id="joinError" style="display:none;color:var(--hot-pink);font-weight:700;margin-top:12px;">
+          Something went wrong. Please check your email and try again.
         </p>
       </form>
     </div>
@@ -2099,20 +2105,108 @@
       link.addEventListener('click', closeDrawer);
     });
 
-    // City Interest Form
-    function handleCitySubmit(e) {
+    // Kit Form Submissions (Endpoint: https://app.kit.com/forms/9186504/subscriptions)
+    const KIT_FORM_URL = 'https://app.kit.com/forms/9186504/subscriptions';
+
+    // 1. City Interest Form
+    async function handleCitySubmit(e) {
       e.preventDefault();
+      const nameInput = document.getElementById('cityUserName');
+      const emailInput = document.getElementById('cityUserEmail');
+      const cityInput = document.getElementById('cityUserLocation');
+      const btn = document.getElementById('citySubmitBtn');
       const success = document.getElementById('citySuccess');
-      success.style.display = 'block';
-      e.target.reset();
+      const error = document.getElementById('cityError');
+
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim();
+      const city = cityInput.value.trim();
+
+      if (!email || !email.includes('@')) {
+        emailInput.focus();
+        return;
+      }
+
+      btn.textContent = 'Registering...';
+      btn.style.opacity = '0.7';
+      btn.disabled = true;
+      error.style.display = 'none';
+
+      const formData = new FormData();
+      formData.append('email_address', email);
+      if (name) formData.append('first_name', name);
+      if (city) formData.append('fields[city]', city);
+
+      try {
+        await fetch(KIT_FORM_URL, {
+          method: 'POST',
+          body: formData,
+          mode: 'no-cors'
+        });
+        nameInput.value = '';
+        emailInput.value = '';
+        cityInput.value = '';
+        btn.textContent = 'Registered';
+        btn.style.opacity = '1';
+        btn.disabled = false;
+        success.style.display = 'block';
+      } catch (err) {
+        btn.textContent = 'Register Your City';
+        btn.style.opacity = '1';
+        btn.disabled = false;
+        error.style.display = 'block';
+      }
     }
 
-    // Newsletter Form
-    function handleJoinSubmit(e) {
+    // 2. Newsletter / Network Join Form
+    async function handleJoinSubmit(e) {
       e.preventDefault();
+      const nameInput = document.getElementById('joinName');
+      const emailInput = document.getElementById('joinEmail');
+      const btn = document.getElementById('joinSubmitBtn');
       const success = document.getElementById('joinSuccess');
-      success.style.display = 'block';
-      e.target.reset();
+      const error = document.getElementById('joinError');
+
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim();
+
+      if (!email || !email.includes('@')) {
+        emailInput.focus();
+        return;
+      }
+
+      const selectedInterests = Array.from(document.querySelectorAll('input[name="interest"]:checked'))
+        .map(el => el.value)
+        .join(', ');
+
+      btn.textContent = 'Joining...';
+      btn.style.opacity = '0.7';
+      btn.disabled = true;
+      error.style.display = 'none';
+
+      const formData = new FormData();
+      formData.append('email_address', email);
+      if (name) formData.append('first_name', name);
+      if (selectedInterests) formData.append('fields[interests]', selectedInterests);
+
+      try {
+        await fetch(KIT_FORM_URL, {
+          method: 'POST',
+          body: formData,
+          mode: 'no-cors'
+        });
+        nameInput.value = '';
+        emailInput.value = '';
+        btn.textContent = 'Joined';
+        btn.style.opacity = '1';
+        btn.disabled = false;
+        success.style.display = 'block';
+      } catch (err) {
+        btn.textContent = 'Join the Network →';
+        btn.style.opacity = '1';
+        btn.disabled = false;
+        error.style.display = 'block';
+      }
     }
 
     // Count Up Animation
